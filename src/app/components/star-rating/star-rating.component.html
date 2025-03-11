@@ -1,0 +1,8 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<!-- <p>{{rating}}</p> -->
+<div>
+<!-- boucle pour afficher une list des étoiles -->
+<span class="fa fa-star" [id] = "item" *ngFor="let item of [1,2,3,4,5]" (click)="updateRating($event)" [ngClass]="{checked : !(item > rating) }"></span>
+
+</div>
