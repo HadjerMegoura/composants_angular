@@ -1,30 +1,42 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
-import { NgFor, NgClass } from '@angular/common';
-
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-star-rating',
   standalone: true,
-  imports: [NgFor, NgClass],
+  imports: [CommonModule],
   templateUrl: './star-rating.component.html',
-  styleUrl: './star-rating.component.css'
+  styleUrl: './star-rating.component.css',
 })
 export class StarRatingComponent {
-
   //recevoir le rating initiale du composant parent
-  @Input() rating !: number;
+  private _rating: number;
 
-  // eventEmitter pour updater le parent par la nouvelle note
-  @Output() sendNewRating = new EventEmitter<number>();
+  /**
+   * @description set method for rating prop, it sets the range of the prop
+   * @param {number} value  ,it should be between 0 and 5
+   */
 
-  //fonction pour mettre a jour le rating + emit to parent
-  updateRating(event : any) {
-    //update rating
-    this.rating = event.target.id;
-    //send data to parent
-    this.sendNewRating.emit(this.rating);
-    
-    
+  @Input() set rating(value: number) {
+    if (value >= 0 && value <= 5) {
+      this._rating = value;
+    } else {
+      throw new Error('Rating should be between 0 and 5');
+    }
+  }
+  get rating() {
+    return this._rating;
   }
 
+  @Output() sendNewRating = new EventEmitter<number>();
+
+  /**
+   * @description emit the new rating set by the user to the parent component
+   * @param {number} number , use the item number to get the rating
+   */
+  updateRating(rating: number) {
+    this.rating = rating;
+    this.sendNewRating.emit(this.rating);
+    console.log(rating);
+  }
 }

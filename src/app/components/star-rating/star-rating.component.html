@@ -3,6 +3,7 @@
 <!-- <p>{{rating}}</p> -->
 <div>
 <!-- boucle pour afficher une list des étoiles -->
-<span class="fa fa-star" [id] = "item" *ngFor="let item of [1,2,3,4,5]" (click)="updateRating($event)" [ngClass]="{checked : !(item > rating) }"></span>
+<span class="fa fa-star" [id] = "item" *ngFor="let item of [1,2,3,4,5]" 
+(click)="updateRating(item)" [ngClass]="{checked : !(item > rating ) }"></span>
 
 </div>
